@@ -28,10 +28,13 @@
       }
       main {
         flex: 1;
+        min-height: 0;
+        display: flex;
       }
       iframe {
+        flex: 1;
         width: 100%;
-        height: calc(100vh - 58px);
+        min-height: 0;
         border: 0;
       }
     </style>
@@ -42,7 +45,10 @@
       <a class="button" href="./resume.pdf" download>下载 PDF</a>
     </header>
     <main>
-      <iframe src="./resume.pdf" title="简历 PDF"></iframe>
+      <iframe src="./resume.pdf" title="简历 PDF">
+        你的浏览器无法直接预览 PDF，请点击
+        <a href="./resume.pdf">这里查看简历</a>。
+      </iframe>
     </main>
   </body>
 </html>
