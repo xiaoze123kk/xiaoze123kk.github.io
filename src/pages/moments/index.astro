@@ -1,0 +1,20 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/PageHero.astro";
+
+const moments = (await getCollection("moments")).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const groups = Object.entries(Object.groupBy(moments, (moment) => `${moment.data.date.getFullYear()}-${String(moment.data.date.getMonth() + 1).padStart(2, "0")}`));
+const monthName = (date: Date) => date.toLocaleDateString("zh-CN", { month: "long" });
+---
+
+<BaseLayout title="此刻 · ZeYuan" description="ZeYuan 最近在做什么，以及一些随手记。" active="moments" footerQuote="生活的边角料，也值得被好好放下。">
+  <PageHero overline="MOMENTS · 随手记" title="此刻" deck="项目之外，也记录正在发生的关注、判断和一点点变化。" count={`${String(moments.length).padStart(2, "0")} MOMENTS`} />
+  <div class="page-content">
+    {groups.map(([, entries]) => entries && entries.length > 0 && (
+      <section class="moment-month reveal"><div class="month-label"><span>{entries[0].data.date.toLocaleDateString("en-US", { month: "long", year: "numeric" }).toUpperCase()}</span><h2>{monthName(entries[0].data.date)}</h2></div><div class="moment-list">
+        {entries.map((moment) => <article class="moment-entry"><div class="moment-day"><strong>{String(moment.data.date.getDate()).padStart(2, "0")}</strong><span>{moment.data.weekday}</span></div><div><span class="moment-place">{moment.data.place}</span><p>{moment.data.text}</p></div></article>)}
+      </div></section>
+    ))}
+  </div>
+</BaseLayout>

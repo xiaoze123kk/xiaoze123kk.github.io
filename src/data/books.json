@@ -1,0 +1,26 @@
+[
+  {
+    "id": "reading-now",
+    "shelf": "SLOT · 01",
+    "title": "正在读",
+    "author": "等待添加",
+    "status": "在读",
+    "note": "把最近正在翻的书放在这里。"
+  },
+  {
+    "id": "recently-finished",
+    "shelf": "SLOT · 02",
+    "title": "最近读完",
+    "author": "等待添加",
+    "status": "已读",
+    "note": "留下真正改变过想法的那一本。"
+  },
+  {
+    "id": "reading-list",
+    "shelf": "SLOT · 03",
+    "title": "想读清单",
+    "author": "等待添加",
+    "status": "待读",
+    "note": "为下一个问题预留一格位置。"
+  }
+]

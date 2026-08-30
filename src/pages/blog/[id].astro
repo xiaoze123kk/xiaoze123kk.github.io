@@ -1,0 +1,26 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const articles = (await getCollection("articles")).filter((article) => !article.data.draft);
+  return articles.map((article) => ({ params: { id: article.id }, props: { article } }));
+}
+
+interface Props { article: CollectionEntry<"articles">; }
+const { article } = Astro.props;
+const { Content } = await render(article);
+const published = article.data.date.toLocaleDateString("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit" }).replaceAll("/", " · ");
+---
+
+<BaseLayout title={`${article.data.title} · ZeYuan`} description={article.data.description} active="blog" footerQuote="每一篇文章，都是一次可以继续修正的思考。" footerHref="/blog/" footerLabel="返回文章 ←">
+  <article class="post-page">
+    <header class="post-header reveal">
+      <a class="post-back" href="/blog/">← ALL WRITING</a>
+      <div class="post-meta"><span>{article.data.status}</span><time datetime={article.data.date.toISOString()}>{published}</time><span>约 {article.data.readMinutes} 分钟</span></div>
+      <h1>{article.data.title}</h1><p>{article.data.description}</p>
+      <div class="post-topics">{article.data.topics.map((topic) => <span>#{topic}</span>)}</div>
+    </header>
+    <div class="post-content reveal"><Content /></div>
+  </article>
+</BaseLayout>

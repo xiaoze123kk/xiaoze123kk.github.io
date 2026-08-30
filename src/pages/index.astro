@@ -1,0 +1,73 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import site from "../data/site.json";
+
+const articles = (await getCollection("articles")).filter((item) => !item.data.draft).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const projects = (await getCollection("projects")).sort((a, b) => Number(b.data.featured) - Number(a.data.featured));
+const books = await getCollection("books");
+const tracks = await getCollection("tracks");
+const moments = (await getCollection("moments")).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const formatDate = (date: Date) => date.toLocaleDateString("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit" }).replaceAll("/", " · ");
+---
+
+<BaseLayout active="home" footerHref="#top" footerLabel="回到顶部 ↑">
+  <section class="hero" id="top" aria-labelledby="hero-title">
+    <div class="hero-glow glow-a" aria-hidden="true"></div><div class="hero-glow glow-b" aria-hidden="true"></div>
+    <p class="eyebrow reveal" data-greeting>你好，代码还亮着 · A DIGITAL GARDEN</p>
+    <h1 class="hero-title reveal" id="hero-title">HI, I’M <span>ZEYUAN</span><b class="cursor" aria-hidden="true">_</b></h1>
+    <div class="portrait-scene reveal" data-tilt-scene>
+      <div class="portrait-rig">
+        <div class="depth-grid" aria-hidden="true"></div><div class="core-halo" aria-hidden="true"></div>
+        <div class="orbit-3d orbit-x" aria-hidden="true"><i></i></div><div class="orbit-3d orbit-y" aria-hidden="true"><i></i></div><div class="orbit-3d orbit-z" aria-hidden="true"><i></i></div>
+        <div class="portrait-ring"><img src="/assets/avatar.jpg" alt="ZeYuan 的头像" /></div>
+        <span class="system-node node-agent" aria-hidden="true"><b>01</b> AGENT</span><span class="system-node node-contract" aria-hidden="true"><b>02</b> CONTRACT</span><span class="system-node node-verify" aria-hidden="true"><b>03</b> VERIFY</span>
+        <div class="floating-panel panel-state" aria-hidden="true"><span>STATE</span><i></i><i></i><i></i><b>STABLE</b></div><div class="floating-panel panel-proof" aria-hidden="true"><span>PROOF</span><strong>✓</strong><b>READY</b></div>
+        <span class="spark spark-one" aria-hidden="true">✦</span><span class="spark spark-two" aria-hidden="true">✳</span>
+      </div><span class="scene-hint" aria-hidden="true">MOVE TO EXPLORE · 3D CORE</span>
+    </div>
+    <p class="hero-note reveal">{site.tagline}</p>
+    <div class="hero-actions reveal"><a class="button button-primary" href="/projects/">看项目</a><a class="button button-secondary" href={site.resume} target="_blank" rel="noreferrer">打开简历</a></div>
+    <div class="hero-stats reveal" aria-label="个人概览">
+      {site.stats.map((stat, index) => <><a href={stat.href} target={stat.href.startsWith("http") ? "_blank" : undefined} rel={stat.href.startsWith("http") ? "noreferrer" : undefined}><strong>{stat.value}</strong><span>{stat.label}</span></a>{index < site.stats.length - 1 && <i aria-hidden="true">✳</i>}</>)}
+    </div>
+    <a class="scroll-cue" href="#about" aria-label="向下滚动"><span></span></a>
+  </section>
+
+  <div class="ticker" aria-label="关注领域"><div class="ticker-track">
+    {["think 思考 ✳", "build 构建 ✳", "verify 验证 ✳", "iterate 打磨 ✳", "protect 尊重边界 ✳", "grow 生长 ✳", "think 思考 ✳", "build 构建 ✳", "verify 验证 ✳", "iterate 打磨 ✳", "protect 尊重边界 ✳", "grow 生长 ✳"].map((item) => { const [en, ...rest] = item.split(" "); return <span><em>{en}</em> {rest.join(" ")}</span>; })}
+  </div></div>
+
+  <div class="page-wrap">
+    <section class="section about-section" id="about">
+      <div class="section-heading reveal"><span class="section-index">01</span><div><p class="section-kicker">ABOUT / 关于我</p><h2>正在学习，也正在造东西</h2></div></div>
+      <div class="about-grid"><article class="about-copy reveal"><p class="lead">我是{site.fullName}，{site.bio}</p><p>{site.about}</p><a class="text-link" href={site.resume} target="_blank" rel="noreferrer">阅读完整简历 <span aria-hidden="true">↗</span></a></article>
+        <aside class="field-note reveal" aria-label="正在关注"><span class="tape" aria-hidden="true"></span><p class="note-label">NOW / 此刻</p><blockquote>{site.principles.map((line) => <>{line}<br /></>)}</blockquote><p class="note-foot">正在持续探索 AI、创作工具与个人软件之间的结合。</p></aside>
+      </div>
+    </section>
+
+    <section class="section writing-section" id="writing">
+      <div class="section-heading reveal"><span class="section-index">02</span><div><p class="section-kicker">WRITING / 文章</p><h2>最近写下的思考</h2></div><a class="heading-link" href="/blog/">全部文章 →</a></div>
+      <div class="writing-list">{articles.slice(0, 3).map((article) => <a class="writing-card reveal" href={`/blog/${article.id}/`}><div class="writing-meta"><span>{article.data.status}</span><time>{formatDate(article.data.date)}</time></div><h3>{article.data.title}</h3><p>{article.data.description}</p><span class="writing-topic">{article.data.topics.map((topic) => `#${topic}`).join(" / ")}</span></a>)}</div>
+    </section>
+
+    <section class="section projects-section" id="projects">
+      <div class="section-heading reveal"><span class="section-index">03</span><div><p class="section-kicker">SELECTED WORK / 作品</p><h2>最近打磨的项目</h2></div><a class="heading-link" href="/projects/">全部项目 →</a></div>
+      <div class="project-list">{projects.slice(0, 3).map((project, index) => <ProjectCard project={project.data} index={index} />)}</div>
+    </section>
+
+    <section class="section skills-section" id="skills">
+      <div class="section-heading reveal"><span class="section-index">04</span><div><p class="section-kicker">TOOLBOX / 工具箱</p><h2>把想法变成系统</h2></div></div>
+      <div class="skills-grid">{site.skills.map((skill) => <div class="skill-column reveal"><span class="skill-symbol" aria-hidden="true">{skill.symbol}</span><h3>{skill.title}</h3><p>{skill.description}</p><div class="skill-cloud">{skill.items.map((item) => <span>{item}</span>)}</div></div>)}</div>
+    </section>
+
+    <section class="section garden-notes" aria-label="书架、音乐与此刻"><div class="garden-grid">
+      <a class="garden-card books-card reveal" href="/books/"><div class="garden-card-head"><span>05 / BOOKS</span><b aria-hidden="true">⌇</b></div><p class="garden-label">书架</p><h2>读过的东西，<br />会悄悄改变代码。</h2><p class="garden-copy">{books[0]?.data.note ?? "书目正在整理。"}</p><span class="garden-status">{books.length} 格阅读记录</span></a>
+      <a class="garden-card music-card reveal" href="/music/"><div class="garden-card-head"><span>06 / MUSIC</span><b aria-hidden="true">♪</b></div><p class="garden-label">音乐</p><h2>写代码时，<br />让旋律在旁边流动。</h2><p class="garden-copy">{tracks[0]?.data.note ?? "播放列表正在生长。"}</p><div class="equalizer" aria-label="播放列表"><i></i><i></i><i></i><i></i><i></i><span>{tracks.length} TRACKS</span></div></a>
+      <a class="garden-card moment-card reveal" href="/moments/"><div class="garden-card-head"><span>07 / NOW</span><b aria-hidden="true">✳</b></div><p class="garden-label">此刻</p><h2>正在把智能，<br />做得更可靠一点。</h2><p class="garden-copy">{moments[0]?.data.text ?? "最近的记录会出现在这里。"}</p><time class="garden-status">更新于 {moments[0] && formatDate(moments[0].data.date)}</time></a>
+    </div></section>
+
+    <section class="contact-section reveal" aria-labelledby="contact-title"><div class="contact-orbit" aria-hidden="true"><span>LET’S BUILD SOMETHING THOUGHTFUL · </span></div><p>KEEP IN TOUCH / 保持联系</p><h2 id="contact-title">一起做点<br /><em>可靠又有趣</em>的东西。</h2><div class="contact-links"><a class="button button-primary" href={`mailto:${site.email}`}>写封邮件</a><a class="button button-secondary" href={site.github} target="_blank" rel="noreferrer">GitHub ↗</a></div></section>
+  </div>
+</BaseLayout>

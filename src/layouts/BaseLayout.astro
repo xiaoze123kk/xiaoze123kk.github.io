@@ -1,0 +1,73 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  active?: "home" | "blog" | "projects" | "books" | "music" | "moments";
+  footerQuote?: string;
+  footerHref?: string;
+  footerLabel?: string;
+}
+
+const {
+  title = "ZeYuan · Digital Garden",
+  description = "宁泽远（ZeYuan）的个人网站。关注 AI Agent、可靠后端系统与 local-first 产品。",
+  active = "home",
+  footerQuote = "做可审阅的候选，也做经得住验证的系统。",
+  footerHref = "/",
+  footerLabel = "回到首页 ↑",
+} = Astro.props;
+
+const navItems = [
+  { key: "home", label: "首页", href: "/" },
+  { key: "blog", label: "文章", href: "/blog/" },
+  { key: "projects", label: "项目", href: "/projects/" },
+  { key: "books", label: "书架", href: "/books/" },
+  { key: "music", label: "音乐", href: "/music/" },
+  { key: "moments", label: "此刻", href: "/moments/" },
+] as const;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#fbfaf5" />
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/assets/avatar.jpg" />
+    <title>{title}</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✦</text></svg>" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <script>
+      import "../scripts/site.js";
+    </script>
+    <noscript><style>.intro-screen{display:none}.intro-active{overflow:auto}</style></noscript>
+  </head>
+  <body class="intro-active">
+    <a class="skip-link" href="#main">跳到正文</a>
+    <div class="intro-screen" id="intro-screen" aria-hidden="true">
+      <div class="intro-mark"><span class="intro-core">Z</span><i></i><i></i><i></i></div>
+      <p class="intro-name">ZeYuan 的小世界</p><p class="intro-sub">a digital garden</p>
+    </div>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="返回首页"><span class="brand-avatar"><img src="/assets/avatar.jpg" alt="" /></span><span>ZeYuan</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav"><span>菜单</span><i aria-hidden="true"></i></button>
+      <nav class="site-nav" id="site-nav" aria-label="主导航">
+        {navItems.map((item) => <a class:list={{ active: active === item.key }} href={item.href}>{item.label}</a>)}
+      </nav>
+    </header>
+    <main id="main"><slot /></main>
+    <footer class="site-footer">
+      <p>© <span data-year></span> ZeYuan · 手植于 GitHub Pages</p>
+      <p class="footer-quote">“{footerQuote}”</p>
+      <a href={footerHref}>{footerLabel}</a>
+    </footer>
+  </body>
+</html>

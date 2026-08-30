@@ -1,0 +1,31 @@
+---
+interface ProjectData {
+  name: string;
+  kind: string;
+  year: number;
+  description: string;
+  tech: string[];
+  href: string;
+  featured: boolean;
+}
+interface Props { project: ProjectData; index: number; }
+const { project, index } = Astro.props;
+const number = String(index + 1).padStart(2, "0");
+---
+
+<a class:list={["project-card", "reveal", { "project-featured": project.featured }]} href={project.href} target="_blank" rel="noreferrer">
+  {project.featured ? (
+    <div class="project-visual casefile-visual" aria-hidden="true">
+      <span class="case-tab">CASE / {number}</span><div class="case-lines"><i></i><i></i><i></i><i></i></div>
+      <strong>CASE<br />FILE</strong><span class="case-stamp">VERIFIED</span>
+    </div>
+  ) : (
+    <div class:list={["project-number", { coral: index % 2 === 0 }]} aria-hidden="true">{number}<span>{index % 2 === 0 ? "✳" : "✦"}</span></div>
+  )}
+  <div class="project-copy">
+    <div class="project-meta"><span>{project.kind}</span><time>{project.year}</time></div>
+    <h3>{project.name}</h3><p>{project.description}</p>
+    <ul class="tags" aria-label="技术栈">{project.tech.map((item) => <li>{item}</li>)}</ul>
+  </div>
+  <span class="project-arrow" aria-hidden="true">↗</span>
+</a>

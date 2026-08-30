@@ -1,0 +1,21 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/PageHero.astro";
+
+const books = (await getCollection("books")).sort((a, b) => a.id.localeCompare(b.id));
+---
+
+<BaseLayout title="书架 · ZeYuan" description="ZeYuan 的阅读书架与划线记录。" active="books" footerQuote="读过的东西，会悄悄改变代码。">
+  <PageHero overline="BOOKS · READING RECORD" title="书架" deck="书页翻过，划线留下。那些还没想完的问题，先放在这里继续发酵。" count={`LIVE SHELF · ${books.length} 格`} />
+  <div class="page-content">
+    <div class="shelf-intro reveal"><span class="live-dot">READING SHELF</span><span class="shelf-note">修改 src/data/books.json 即可更新书架。</span></div>
+    <div class="book-grid">
+      {books.map((book) => <article class="book-slot reveal"><span>{book.data.shelf}</span><h2>{book.data.title}</h2><p>{book.data.note}</p></article>)}
+    </div>
+    <div class="reading-ledger reveal">
+      <div class="ledger-row header"><span>书名</span><span>著者</span><span>状态</span></div>
+      {books.map((book) => <div class="ledger-row"><span>{book.data.title}</span><span>{book.data.author}</span><span>{book.data.status}</span></div>)}
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,16 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/PageHero.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+
+const projects = (await getCollection("projects")).sort((a, b) => Number(b.data.featured) - Number(a.data.featured));
+---
+
+<BaseLayout title="项目 · ZeYuan" description="ZeYuan 正在构建的 AI Agent、后端系统与本地软件项目。" active="projects" footerQuote="先让它工作，再证明它可靠。" footerHref="https://github.com/xiaoze123kk" footerLabel="全部仓库 ↗">
+  <PageHero overline="PROJECTS · 正在打磨" title="项目" deck="工作台上的东西，既要有智能，也要有清楚的边界和完成证明。" count={`${String(projects.length).padStart(2, "0")} SELECTED WORKS`} />
+  <div class="page-content project-archive">
+    {projects.map((project, index) => <ProjectCard project={project.data} index={index} />)}
+    <p class="project-page-note reveal">项目不是一次性展品。它们会随着验证、反馈与真实使用继续生长。</p>
+  </div>
+</BaseLayout>

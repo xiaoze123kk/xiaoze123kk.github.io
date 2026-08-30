@@ -1,0 +1,23 @@
+[
+  {
+    "id": "coding-loop",
+    "title": "你的第一首循环",
+    "artist": "等待添加",
+    "note": "把最近写代码时最常播放的歌放进来。",
+    "added": "—"
+  },
+  {
+    "id": "night-work",
+    "title": "夜间工作背景声",
+    "artist": "等待添加",
+    "note": "适合专注、阅读或慢慢打磨产品。",
+    "added": "—"
+  },
+  {
+    "id": "next-track",
+    "title": "下一首待添加",
+    "artist": "等待添加",
+    "note": "播放列表会随着日常继续生长。",
+    "added": "—"
+  }
+]

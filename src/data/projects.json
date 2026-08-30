@@ -1,0 +1,35 @@
+[
+  {
+    "id": "casefile",
+    "name": "CaseFile",
+    "kind": "核心项目",
+    "year": 2026,
+    "description": "面向个人创作者的互动推理内容设计与验证平台，让人、模型与确定性规则共同工作。",
+    "quote": "把零散的创作材料，整理成可编辑、可验证、可追溯的数字卷宗。",
+    "tech": ["FastAPI", "PostgreSQL", "Next.js", "Agent"],
+    "href": "https://github.com/xiaoze123kk/CaseFile",
+    "featured": true
+  },
+  {
+    "id": "kittypet",
+    "name": "KittyPet",
+    "kind": "Windows 桌面应用",
+    "year": 2026,
+    "description": "一只安静、可互动、默认完全离线运行的桌面猫咪。所有个人数据留在用户自己的电脑上。",
+    "quote": "让个人软件保持温度，也保持边界。",
+    "tech": ["TypeScript", "Tauri", "Local-first"],
+    "href": "https://github.com/xiaoze123kk/HelloKitty-pet",
+    "featured": false
+  },
+  {
+    "id": "psy-agent",
+    "name": "psy-agent",
+    "kind": "Agent 实验场",
+    "year": 2026,
+    "description": "围绕 Agent、结构化推理与智能应用的持续实验。",
+    "quote": "把关于智能应用的问题放进真实代码里验证。",
+    "tech": ["Python", "AI Agent", "Research"],
+    "href": "https://github.com/xiaoze123kk/psy-agent",
+    "featured": false
+  }
+]

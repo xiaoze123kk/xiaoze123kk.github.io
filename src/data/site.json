@@ -1,0 +1,40 @@
+{
+  "name": "ZeYuan",
+  "fullName": "宁泽远",
+  "tagline": "把模糊的想法，做成边界清楚、可以验证的产品。",
+  "bio": "武汉理工大学计算机科学与技术专业在读，关注 AI Agent、可靠后端系统与有温度的本地软件。",
+  "about": "我喜欢把一个模糊念头一路做到架构、实现与交付。模型可以提出候选，但契约、验证和最终决定权应当留在系统与人手中。",
+  "email": "zey@whut.edu.cn",
+  "github": "https://github.com/xiaoze123kk",
+  "resume": "/resume.pdf",
+  "stats": [
+    { "value": "13", "label": "公开仓库", "href": "https://github.com/xiaoze123kk?tab=repositories" },
+    { "value": "3", "label": "重点项目", "href": "/projects/" },
+    { "value": "8+", "label": "常用技术", "href": "/#skills" }
+  ],
+  "principles": [
+    "AI output should be inspectable.",
+    "Automation should be recoverable.",
+    "Local software should respect its user."
+  ],
+  "skills": [
+    {
+      "symbol": "{ }",
+      "title": "Backend & Agent",
+      "description": "为智能能力建立清楚的协议、持久化状态与可恢复工作流。",
+      "items": ["Python", "FastAPI", "Java", "Spring Boot", "AI Agent"]
+    },
+    {
+      "symbol": "⌁",
+      "title": "Data & Infra",
+      "description": "在真实的数据和并发约束下，保持系统稳定、可观察、可验证。",
+      "items": ["PostgreSQL", "Redis", "Kafka", "Docker", "Elasticsearch"]
+    },
+    {
+      "symbol": "✦",
+      "title": "Product & App",
+      "description": "从交互细节到安装交付，做真正属于使用者的个人软件。",
+      "items": ["TypeScript", "React", "Next.js", "Tauri", "PowerShell"]
+    }
+  ]
+}

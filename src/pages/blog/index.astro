@@ -1,0 +1,33 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/PageHero.astro";
+
+const articles = (await getCollection("articles"))
+  .filter((article) => !article.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const featured = articles.find((article) => article.data.featured) ?? articles[0];
+const rest = articles.filter((article) => article.id !== featured?.id);
+const formatDate = (date: Date) => date.toLocaleDateString("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit" }).replaceAll("/", " · ");
+---
+
+<BaseLayout title="文章 · ZeYuan" description="ZeYuan 关于 AI Agent、软件工程与个人产品的文章。" active="blog" footerQuote="写下来，才有机会继续生长。">
+  <PageHero overline="WRITING · 最近写下" title="文章" deck="念头只有被写下来，才有机会接受检验、继续生长。" count={`${String(articles.length).padStart(2, "0")} NOTES · 2026`} />
+  <div class="page-content">
+    <div class="filter-row reveal" aria-label="文章主题"><span class="filter-pill active">全部</span><span class="filter-pill">#AI Agent</span><span class="filter-pill">#软件工程</span><span class="filter-pill">#Local-first</span></div>
+    {featured && (
+      <a class="article-feature reveal" href={`/blog/${featured.id}/`}>
+        <div class="article-date-block"><strong>{String(featured.data.date.getDate()).padStart(2, "0")}</strong>{featured.data.date.toLocaleDateString("en-US", { month: "short", year: "numeric" }).toUpperCase()}</div>
+        <div><span class="growth-tag">最新收录 · {featured.data.status}</span><h2>{featured.data.title}</h2><p>{featured.data.description}</p></div>
+      </a>
+    )}
+    <div class="article-archive">
+      {rest.map((article) => (
+        <a class="archive-row reveal" href={`/blog/${article.id}/`}>
+          <time datetime={article.data.date.toISOString()}>{formatDate(article.data.date)}</time>
+          <h2>{article.data.title}</h2><p>{article.data.description}</p><span class="reading-time">约 {article.data.readMinutes} 分钟</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</BaseLayout>

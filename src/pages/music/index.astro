@@ -1,0 +1,18 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/PageHero.astro";
+
+const tracks = (await getCollection("tracks")).sort((a, b) => a.id.localeCompare(b.id));
+const nowPlaying = tracks[0];
+---
+
+<BaseLayout title="音乐 · ZeYuan" description="ZeYuan 的写代码电台与播放列表。" active="music" footerQuote="旋律不打断思路，只陪它走远一点。">
+  <PageHero overline="MIDNIGHT RADIO · 写代码的频率" title="音乐" deck="灯还亮着时，让旋律在思路旁边安静地流动。" count={`${String(tracks.length).padStart(2, "0")} TRACKS · PLAYLIST`} />
+  <div class="page-content">
+    <section class="radio-console reveal" aria-label="个人电台"><div class="radio-top"><span>ZEYUAN'S CODING RADIO</span><span class="on-air">● ON AIR</span></div><div class="frequency"><strong>90.5</strong><span>MHz</span></div><div class="frequency-rule" aria-hidden="true"><i></i></div><div class="now-playing"><div><p>NOW PLAYING · 正在循环</p><h2>{nowPlaying?.data.title ?? "等待放入第一首歌"}</h2></div><p>{nowPlaying?.data.artist ?? "音频与歌单将在这里接入"}</p></div></section>
+    <div class="track-list reveal">
+      {tracks.map((track, index) => <article class="track-row"><span>{String(index + 1).padStart(2, "0")}</span><div><h3>{track.data.title}</h3><p>{track.data.artist} · {track.data.note}</p></div><time>{track.data.added}</time></article>)}
+    </div>
+  </div>
+</BaseLayout>
