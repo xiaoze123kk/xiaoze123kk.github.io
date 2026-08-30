@@ -1,23 +1,9 @@
 [
-  {
-    "id": "coding-loop",
-    "title": "你的第一首循环",
-    "artist": "等待添加",
-    "note": "把最近写代码时最常播放的歌放进来。",
-    "added": "—"
-  },
-  {
-    "id": "night-work",
-    "title": "夜间工作背景声",
-    "artist": "等待添加",
-    "note": "适合专注、阅读或慢慢打磨产品。",
-    "added": "—"
-  },
-  {
-    "id": "next-track",
-    "title": "下一首待添加",
-    "artist": "等待添加",
-    "note": "播放列表会随着日常继续生长。",
-    "added": "—"
-  }
+  { "id": "01-eason-decade", "title": "十年", "artist": "陈奕迅", "note": "熟悉的旋律，适合把复杂心事交给夜色。", "query": "陈奕迅 十年", "accent": "#df7868", "added": "2026/08", "audio": "/audio/eason-decade.mp3" },
+  { "id": "02-eason-fuji", "title": "富士山下", "artist": "陈奕迅", "note": "克制、绵长，像一段无法带走的风景。", "query": "陈奕迅 富士山下", "accent": "#7fa8a4", "added": "2026/08", "audio": "/audio/eason-fuji.mp3" },
+  { "id": "06-eason-eliminated", "title": "淘汰", "artist": "陈奕迅", "note": "有些告别不喧哗，却比结局更清楚。", "query": "陈奕迅 淘汰", "accent": "#9b826f", "added": "2026/08", "audio": "/audio/eason-eliminated.mp3" },
+  { "id": "07-eason-k-song", "title": "K歌之王", "artist": "陈奕迅", "note": "把说不出口的话，交给一首歌唱完。", "query": "陈奕迅 K歌之王", "accent": "#6e9da2", "added": "2026/08", "audio": "/audio/eason-k-song.mp3" },
+  { "id": "10-eason-backpack", "title": "你的背包", "artist": "陈奕迅", "note": "一件旧物，也能替时间保存重量。", "query": "陈奕迅 你的背包", "accent": "#a58b65", "added": "2026/08", "audio": "/audio/eason-backpack.mp3" },
+  { "id": "21-eason-years-as-song", "title": "岁月如歌", "artist": "陈奕迅", "note": "岁月是一首长长的歌，走过的路都有回音。", "query": "陈奕迅 岁月如歌", "accent": "#8a9a7b", "added": "2026/08", "audio": "/audio/eason-years-as-song.mp3" },
+  { "id": "22-eason-accompany-long-years", "title": "陪你度过漫长岁月", "artist": "陈奕迅", "note": "漫长日子里，陪伴本身就是最温柔的答案。", "query": "陈奕迅 陪你度过漫长岁月", "accent": "#7d9c9f", "added": "2026/08", "audio": "/audio/eason-accompany-long-years.mp3" }
 ]

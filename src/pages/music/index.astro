@@ -8,11 +8,54 @@ const nowPlaying = tracks[0];
 ---
 
 <BaseLayout title="音乐 · ZeYuan" description="ZeYuan 的写代码电台与播放列表。" active="music" footerQuote="旋律不打断思路，只陪它走远一点。">
-  <PageHero overline="MIDNIGHT RADIO · 写代码的频率" title="音乐" deck="灯还亮着时，让旋律在思路旁边安静地流动。" count={`${String(tracks.length).padStart(2, "0")} TRACKS · PLAYLIST`} />
-  <div class="page-content">
-    <section class="radio-console reveal" aria-label="个人电台"><div class="radio-top"><span>ZEYUAN'S CODING RADIO</span><span class="on-air">● ON AIR</span></div><div class="frequency"><strong>90.5</strong><span>MHz</span></div><div class="frequency-rule" aria-hidden="true"><i></i></div><div class="now-playing"><div><p>NOW PLAYING · 正在循环</p><h2>{nowPlaying?.data.title ?? "等待放入第一首歌"}</h2></div><p>{nowPlaying?.data.artist ?? "音频与歌单将在这里接入"}</p></div></section>
-    <div class="track-list reveal">
-      {tracks.map((track, index) => <article class="track-row"><span>{String(index + 1).padStart(2, "0")}</span><div><h3>{track.data.title}</h3><p>{track.data.artist} · {track.data.note}</p></div><time>{track.data.added}</time></article>)}
+  <div class="music-page">
+    <PageHero overline="MIDNIGHT RADIO · 写代码的频率" title="音乐" deck="拨到这格频率时，灯还亮着，旋律正好经过。" count={`${String(tracks.length).padStart(2, "0")} TRACKS · PLAYLIST`} />
+    <div class="page-content">
+    <section class="radio-console reveal" aria-label="个人电台" data-radio style={`--radio-accent:${nowPlaying?.data.accent ?? "#e48472"}`}>
+      <span class="console-tape" aria-hidden="true"></span>
+      <div class="radio-top"><span class="on-air"><i></i> ON AIR</span><span>ZEYUAN'S <b>MIDNIGHT RADIO</b> · 深夜电台</span></div>
+      <div class="frequency-rule" aria-hidden="true"><i></i></div>
+      <div class="radio-stage">
+        <div class="record-deck" data-record-deck>
+          <button class="radio-play" type="button" data-radio-play aria-label="播放十年"><span data-play-icon>▶</span></button>
+          <div class="radio-equalizer" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+        </div>
+        <div class="now-playing">
+          <p>NOW PLAYING · 正在试听</p>
+          <h2 data-radio-title>{nowPlaying?.data.title ?? "等待放入第一首歌"}</h2>
+          <strong data-radio-artist>{nowPlaying?.data.artist ?? "播放列表正在生长"}</strong>
+          <blockquote data-radio-note>{nowPlaying?.data.note}</blockquote>
+          <div class="radio-progress"><span data-radio-current>0:00</span><input data-radio-progress type="range" min="0" max="100" value="0" aria-label="试听进度" /><span data-radio-duration>0:30</span></div>
+          <div class="radio-source"><span data-radio-status>正在连接官方试听源…</span><a data-radio-link href={`https://music.apple.com/hk/search?term=${encodeURIComponent(nowPlaying?.data.query ?? "")}`} target="_blank" rel="noreferrer">在 Apple Music 打开 ↗</a></div>
+        </div>
+      </div>
+    </section>
+    <section class="playlist reveal" aria-labelledby="playlist-title">
+      <div class="playlist-head"><div><span>PROGRAM / 节目单</span><h2 id="playlist-title">本季循环</h2></div><b>{String(tracks.length).padStart(2, "0")} TRACKS</b></div>
+      <div class="track-list">
+        {tracks.map((track, index) => (
+          <button
+            class:list={["track-row", { active: index === 0 }]}
+            type="button"
+            aria-pressed={index === 0 ? "true" : "false"}
+            data-radio-track
+            data-track-index={index}
+            data-title={track.data.title}
+            data-artist={track.data.artist}
+            data-note={track.data.note}
+            data-query={track.data.query}
+            data-accent={track.data.accent}
+            data-audio={track.data.audio ?? ""}
+            style={`--track-accent:${track.data.accent}`}
+          >
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <div><h3>{track.data.title} <em>{track.data.artist}</em></h3><p>{track.data.note}</p></div>
+            <time>{track.data.added}</time><i aria-hidden="true">▶</i>
+          </button>
+        ))}
+      </div>
+      <p class="playlist-credit">试听片段由 Apple Music 提供，仅用于歌曲预览；完整歌曲请前往音乐平台收听。</p>
+    </section>
     </div>
   </div>
 </BaseLayout>

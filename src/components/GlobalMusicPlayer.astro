@@ -1,0 +1,32 @@
+---
+import musicTracks from "../data/music.json";
+
+const tracks = [...musicTracks].sort((a, b) => a.id.localeCompare(b.id));
+const firstTrack = tracks[0];
+const serializedTracks = JSON.stringify(tracks).replaceAll("<", "\\u003c");
+---
+
+<aside
+  class="mini-player"
+  aria-label="全站音乐播放器"
+  data-global-player
+  data-active-index="0"
+  style={`--player-accent:${firstTrack?.accent ?? "#e48472"}`}
+  transition:persist="global-music-player"
+>
+  <audio data-global-audio preload="metadata"></audio>
+  <script type="application/json" data-global-tracks set:html={serializedTracks}></script>
+  <span class="mini-player-progress" aria-hidden="true"><i></i></span>
+  <span class="mini-player-signal" aria-hidden="true"><i></i><i></i><i></i></span>
+  <div class="mini-player-copy" aria-live="polite">
+    <span data-player-status>MIDNIGHT RADIO · 待机</span>
+    <strong data-player-title>{firstTrack?.title ?? "播放列表"}</strong>
+    <em data-player-artist>{firstTrack?.artist ?? "ZeYuan"}</em>
+  </div>
+  <div class="mini-player-controls">
+    <button type="button" data-player-prev aria-label="播放前一首"><span aria-hidden="true">│◀</span></button>
+    <button class="mini-player-toggle" type="button" data-player-toggle aria-label={`播放${firstTrack?.title ?? "当前歌曲"}`}><span data-player-icon aria-hidden="true">▶</span></button>
+    <button type="button" data-player-next aria-label="播放后一首"><span aria-hidden="true">▶│</span></button>
+    <button class="mini-player-stop" type="button" data-player-stop aria-label="停止播放"><span aria-hidden="true">■</span></button>
+  </div>
+</aside>

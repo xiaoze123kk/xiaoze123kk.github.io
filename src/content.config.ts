@@ -50,6 +50,8 @@ const tracks = defineCollection({
     title: z.string(),
     artist: z.string(),
     note: z.string(),
+    query: z.string(),
+    accent: z.string(),
     added: z.string(),
     audio: z.string().optional(),
   }),
