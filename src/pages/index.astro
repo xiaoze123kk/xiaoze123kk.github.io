@@ -15,6 +15,8 @@ const formatDate = (date: Date) => date.toLocaleDateString("zh-CN", { year: "num
 <BaseLayout active="home" footerHref="#top" footerLabel="回到顶部 ↑">
   <section class="hero" id="top" aria-labelledby="hero-title">
     <div class="hero-glow glow-a" aria-hidden="true"></div><div class="hero-glow glow-b" aria-hidden="true"></div>
+    <canvas class="hero-constellation" data-constellation aria-hidden="true"></canvas>
+    <div class="hero-field-status" aria-hidden="true"><span><i></i> LIVE CONSTELLATION</span><b data-field-coordinates>X 050 · Y 050</b></div>
     <p class="eyebrow reveal" data-greeting>你好，代码还亮着 · A DIGITAL GARDEN</p>
     <h1 class="hero-title reveal" id="hero-title">HI, I’M <span>ZEYUAN</span><b class="cursor" aria-hidden="true">_</b></h1>
     <div class="portrait-scene reveal" data-tilt-scene>
