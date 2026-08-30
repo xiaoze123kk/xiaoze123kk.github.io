@@ -53,16 +53,6 @@ draft: false
 
 这些文件都有构建期 schema 校验。缺少字段、日期格式错误或链接无效时，`npm run build` 会直接指出问题。
 
-### 使用拥有公开分发许可的音频
-
-将音频放入 `public/audio/`，再在 `src/data/music.json` 对应歌曲中添加：
-
-```json
-"audio": "/audio/your-track.mp3"
-```
-
-播放器会优先使用站内音频；没有 `audio` 字段时，会自动寻找 Apple Music 官方试听。请勿把没有公开分发许可的商业录音提交到公开仓库。
-
 ### 更换头像与简历
 
 - 头像：`public/assets/avatar.jpg`
